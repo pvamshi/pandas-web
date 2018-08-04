@@ -9,15 +9,15 @@ ns = api.namespace('read', description='Read from Source')
 
 read_config = api.model('ReadConfig', {
     'path': fields.String(readOnly=True, required=True, description='Path of the file'),
-    'type': fields.String(readOnly=True, required=True,
-                          description='Type of read config. Ex: csv, json, xsl etc., ')
+    'type': fields.String(readOnly=True, required=True, description='Type of read config. Ex: csv, json, xsl etc., '),
+    'name': fields.String(required=True, description='Identifier to the dataframe')
 })
 
 
-def write_to_db(file_name):
+def write_to_db(name, file_name):
     df = feather.read_dataframe('data/db.feather')
     ind = len(df)
-    df.loc[ind] = file_name
+    df.loc[ind] = [name, file_name]
     feather.write_dataframe(df, 'data/db.feather')
 
 
@@ -37,7 +37,7 @@ class ReadConfig(Resource):
     def get(self):
         '''List all tasks'''
         df = feather.read_dataframe('data/db.feather')
-        return [k[0] for k in df.to_dict('split')['data']]
+        return [{'name': k[0], 'path':k[1]} for k in df.to_dict('split')['data']]
 
     # @ns.doc('create_todo')
     @ns.expect(read_config)
@@ -45,6 +45,6 @@ class ReadConfig(Resource):
     def post(self):
         '''Create a new task'''
         query = api.payload
-        file_name = service.save_df(service.create_df(query['path'], query['type']), str(uuid.uuid4()))
-        write_to_db('{}.feather'.format(file_name))
-        return file_name
+        file_name = service.save_df(service.create_df(query), str(uuid.uuid4()))
+        write_to_db(query['name'], '{}.feather'.format(file_name))
+        return [query['name'], file_name]

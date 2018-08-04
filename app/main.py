@@ -19,7 +19,7 @@ class HelloWorld(Resource):
 
 def initialize():
     if not path.exists('data/db.feather'):
-        db = pd.DataFrame(columns=['file'])
+        db = pd.DataFrame(columns=['name', 'file'])
         feather.write_dataframe(db, 'data/db.feather')
 
 
