@@ -3,6 +3,7 @@ from flask import Flask
 from flask_restplus import Resource, fields
 from app.api import api
 import app.read.service as service
+import feather
 
 ns = api.namespace('read', description='Read from Source')
 
@@ -11,6 +12,13 @@ read_config = api.model('ReadConfig', {
     'type': fields.String(readOnly=True, required=True,
                           description='Type of read config. Ex: csv, json, xsl etc., ')
 })
+
+
+def write_to_db(file_name):
+    df = feather.read_dataframe('data/db.feather')
+    ind = len(df)
+    df.loc[ind] = file_name
+    feather.write_dataframe(df, 'data/db.feather')
 
 
 @ns.route('/types')
@@ -26,9 +34,10 @@ class ReadConfig(Resource):
     # '''Shows a list of all todos, and lets you POST to add new tasks'''
     # @ns.doc('list_todos')
     # @ns.marshal_list_with(todo)
-    # def get(self):
-    #     '''List all tasks'''
-    #     return DAO.todos
+    def get(self):
+        '''List all tasks'''
+        df = feather.read_dataframe('data/db.feather')
+        return [k[0] for k in df.to_dict('split')['data']]
 
     # @ns.doc('create_todo')
     @ns.expect(read_config)
@@ -37,4 +46,5 @@ class ReadConfig(Resource):
         '''Create a new task'''
         query = api.payload
         file_name = service.save_df(service.create_df(query['path'], query['type']), str(uuid.uuid4()))
+        write_to_db('{}.feather'.format(file_name))
         return file_name
