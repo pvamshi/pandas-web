@@ -31,17 +31,12 @@ class ReadConfigTypes(Resource):
 
 @ns.route('/')
 class ReadConfig(Resource):
-    # '''Shows a list of all todos, and lets you POST to add new tasks'''
-    # @ns.doc('list_todos')
-    # @ns.marshal_list_with(todo)
     def get(self):
         '''List all tasks'''
         df = feather.read_dataframe('data/db.feather')
         return [{'name': k[0], 'path':k[1]} for k in df.to_dict('split')['data']]
 
-    # @ns.doc('create_todo')
     @ns.expect(read_config)
-    # @ns.marshal_with(, code=201)
     def post(self):
         '''Create a new task'''
         query = api.payload

@@ -68,3 +68,9 @@ ENV/
 .vscode
 
 data
+
+
+# client
+
+client/node_modules
+client/build

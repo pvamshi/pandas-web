@@ -1,5 +1,5 @@
-from flask import Flask, Blueprint
-from flask_restplus import Resource, Api
+from flask import Flask, Blueprint, render_template, send_from_directory
+from flask_restplus import Resource
 from app.todo.api import ns as todo
 from app.read.api import ns as read
 from app.api import api
@@ -8,13 +8,19 @@ import pandas as pd
 from os import path
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../client/build")
 
 
 @api.route('/hello')
 class HelloWorld(Resource):
     def get(self):
         return {'hello': 'world'}
+
+
+@app.route('/')
+def index():
+    # return render_template('index.html')
+    return send_from_directory(app.static_folder, 'index.html')
 
 
 def initialize():
