@@ -2,6 +2,8 @@
 
 Web based Pandas API
 
+An attempt to create a web based Pandas application where user can drag and drop data files and starts working on them visually.
+
 1.  Clone project
 
 `git clone https://github.com/pvamshi/pandas-web`
@@ -16,11 +18,11 @@ Web based Pandas API
 
 `source venv/bin/activate`
 
-4. Build client code 
+4. Build client code
 
 `cd client`
 
-`npm install` 
+`npm install`
 
 `npm build`
 
@@ -32,6 +34,4 @@ Web based Pandas API
 
 You can check the API swagger at http://localhost:5000/api
 
-Application at http://localhost:5000 
-
-
+Application at http://localhost:5000
