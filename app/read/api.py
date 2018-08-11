@@ -1,8 +1,8 @@
 import uuid
 from flask import Flask
 from flask_restplus import Resource, fields
-from app.api import api
-import app.read.service as service
+from api import api
+import read.service as service
 import feather
 
 ns = api.namespace('read', description='Read from Source')

@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restplus import Resource, fields
-from app.api import api
+from api import api
 
 ns = api.namespace('todos', description='TODO operations')
 

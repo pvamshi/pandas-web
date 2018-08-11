@@ -1,8 +1,9 @@
 from flask import Flask, Blueprint, render_template, send_from_directory
 from flask_restplus import Resource
-from app.todo.api import ns as todo
-from app.read.api import ns as read
-from app.api import api
+from todo.api import ns as todo
+from read.api import ns as read
+from pandasapi.api import ns as pandasapi
+from api import api
 import feather
 import pandas as pd
 from os import path
@@ -34,6 +35,7 @@ if __name__ == '__main__':
     api.init_app(blueprint)
     api.add_namespace(read)
     api.add_namespace(todo)
+    api.add_namespace(pandasapi)
     app.register_blueprint(blueprint)
     initialize()
     app.run(debug=True)
