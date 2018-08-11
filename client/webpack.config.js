@@ -4,27 +4,27 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
-const webpack = require('webpack'); 
+const webpack = require('webpack');
 const path = require('path');
 
 const paths = {
   src: path.resolve(__dirname, 'src'),
-  build: path.resolve(__dirname, 'build')
-}
+  build: path.resolve(__dirname, 'build'),
+};
 
 const uglifyConfig = {
   sourceMap: false,
   warnings: false,
   mangle: true,
-  minimize: true
-}
+  minimize: true,
+};
 
 const htmlConfig = {
   template: path.join(paths.src, 'index.html'),
-  minify : {
-    collapseWhitespace: true
-  }
-}
+  minify: {
+    collapseWhitespace: true,
+  },
+};
 
 const common = {
   devServer: {
@@ -32,7 +32,7 @@ const common = {
   },
   entry: path.join(paths.src, 'index.js'),
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
@@ -42,9 +42,9 @@ const common = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env']
-          }
-        }
+            presets: ['env'],
+          },
+        },
       },
       {
         test: /\.(ts)$/,
@@ -53,15 +53,15 @@ const common = {
           loader: 'awesome-typescript-loader',
           options: {
             useCache: false,
-          }
-        }
+          },
+        },
       },
       {
         test: /\.(css)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
-        })
+          use: 'css-loader',
+        }),
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -69,17 +69,22 @@ const common = {
         use: [
           {
             loader: 'file-loader',
-            options: {}
-          }
-        ]
-      }
-    ]
+            options: {},
+          },
+        ],
+      },
+
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000',
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin([paths.build]),
     new HtmlWebpackPlugin(htmlConfig),
     new ExtractTextPlugin('styles.[contenthash].css'),
-  ]
+  ],
 };
 
 const devSettings = {
@@ -90,42 +95,44 @@ const devSettings = {
   output: {
     path: paths.build,
     filename: 'bundle.[hash].js',
-    publicPath: '/'
+    publicPath: '/',
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new CleanWebpackPlugin([paths.build]),
-  ]
-}
+  ],
+};
 
 const prodSettings = {
   devtool: 'source-map',
   output: {
     path: paths.build,
     filename: 'bundle.[hash].js',
-    publicPath: '/build/'
+    publicPath: '/build/',
   },
   plugins: [
-    new webpack.DefinePlugin({ 'process.env': {
-      NODE_ENV: JSON.stringify('production')
-    }}),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
     new webpack.optimize.UglifyJsPlugin(uglifyConfig),
     new OptimizeCssAssetsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-  ]
-}
+  ],
+};
 
 /**
-* Exports
-**/
+ * Exports
+ **/
 
 const TARGET = process.env.npm_lifecycle_event;
 process.env.BABEL_ENV = TARGET;
 
 if (TARGET === 'start') {
-  module.exports = merge(common, devSettings)
+  module.exports = merge(common, devSettings);
 }
 
 if (TARGET === 'build' || !TARGET) {
-  module.exports = merge(common, prodSettings)
+  module.exports = merge(common, prodSettings);
 }
