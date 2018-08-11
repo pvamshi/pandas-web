@@ -16,8 +16,22 @@ Web based Pandas API
 
 `source venv/bin/activate`
 
-4.  Run server
+4. Build client code 
 
-`python app.py`
+`cd client`
 
-You can check the API swagger at http://localhost:8888/api
+`npm install` 
+
+`npm build`
+
+`cd ..`
+
+5. Run server
+
+`python app/main.py`
+
+You can check the API swagger at http://localhost:5000/api
+
+Application at http://localhost:5000 
+
+
