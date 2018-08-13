@@ -3,35 +3,50 @@ import React from 'react';
 import {
   Alignment,
   Button,
+  Card,
   Classes,
+  Elevation,
   Navbar,
   NavbarGroup,
   NavbarHeading,
 } from '@blueprintjs/core';
 
-// const mySpinner = <Spinner intent={Intent.PRIMARY} />;
-//  => <div className="home">Home {mySpinner}</div>;
-// const { alignRight } = this.state;
-// const options = (
-//   <>
-//     <H5>Props</H5>
-//     <Switch
-//       checked={alignRight}
-//       label="Align right"
-//       onChange={this.handleAlignRightChange}
-//     />
-//   </>
-// );
-const Home = (props) => (
-  <Navbar className={Classes.MINIMAL}>
-    <NavbarGroup align={Alignment.LEFT}>
-      <Button className={[Classes.MINIMAL, Classes.SMALL]} icon="menu" />
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sidebarOpen: true,
+    };
 
-      <NavbarHeading className="ml1">Pandas Web</NavbarHeading>
-      {/* <NavbarDivider /> */}
-      {/* <Button className={Classes.MINIMAL} icon="home" text="Home" />
-      <Button className={Classes.MINIMAL} icon="document" text="Files" /> */}
-    </NavbarGroup>
-  </Navbar>
-);
-export default Home;
+    this.toggleSidebar = this.toggleSidebar.bind(this);
+  }
+  toggleSidebar() {
+    this.setState({
+      sidebarOpen: !this.state.sidebarOpen,
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar className={Classes.MINIMAL}>
+          <NavbarGroup align={Alignment.LEFT}>
+            <Button
+              className={[Classes.MINIMAL, Classes.SMALL]}
+              icon="menu"
+              onClick={this.toggleSidebar}
+            />
+            <NavbarHeading className="ml1">Pandas Web</NavbarHeading>
+          </NavbarGroup>
+        </Navbar>
+        {this.state.sidebarOpen && (
+          <Card elevation={Elevation.TWO} className="sidebar">
+            <p> Sidebar content </p>
+          </Card>
+        )}
+        <div className={this.state.sidebarOpen ? 'main-open' : 'main'}>
+          Main content
+        </div>
+      </div>
+    );
+  }
+}

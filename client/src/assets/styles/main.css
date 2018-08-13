@@ -18,3 +18,24 @@ html {
 body {
   font-family: Open Sans;
 }
+
+.sidebar {
+  position: absolute;
+  left: 0;
+  width: 240px;
+  height: calc(100vh - 50px);
+}
+
+.main-open {
+  position: relative;
+  margin-left: 250px;
+  height: calc(100vh - 50px);
+  padding: 20px;
+}
+
+.main {
+  position: relative;
+  margin-left: 0px;
+  height: calc(100vh - 50px);
+  padding: 20px;
+}
