@@ -39,7 +39,8 @@
     "redux-freeze": "^0.1.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "url-loader": "^1.0.1"
+    "url-loader": "^1.0.1",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",

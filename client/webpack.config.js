@@ -30,7 +30,7 @@ const common = {
   devServer: {
     contentBase: path.join(__dirname, 'build'),
   },
-  entry: path.join(paths.src, 'index.js'),
+  entry: ['whatwg-fetch', path.join(paths.src, 'index.js')],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },

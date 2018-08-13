@@ -1,52 +1,22 @@
 import React from 'react';
-
-import {
-  Alignment,
-  Button,
-  Card,
-  Classes,
-  Elevation,
-  Navbar,
-  NavbarGroup,
-  NavbarHeading,
-} from '@blueprintjs/core';
+import Layout from './Layout';
+import Datafiles from './Datafiles';
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      sidebarOpen: true,
-    };
-
-    this.toggleSidebar = this.toggleSidebar.bind(this);
+    this.menuSelected = this.menuSelected.bind(this);
   }
-  toggleSidebar() {
-    this.setState({
-      sidebarOpen: !this.state.sidebarOpen,
-    });
+
+  menuSelected(dataFile) {
+    console.log('d', dataFile);
   }
   render() {
     return (
-      <div>
-        <Navbar className={Classes.MINIMAL}>
-          <NavbarGroup align={Alignment.LEFT}>
-            <Button
-              className={[Classes.MINIMAL, Classes.SMALL]}
-              icon="menu"
-              onClick={this.toggleSidebar}
-            />
-            <NavbarHeading className="ml1">Pandas Web</NavbarHeading>
-          </NavbarGroup>
-        </Navbar>
-        {this.state.sidebarOpen && (
-          <Card elevation={Elevation.TWO} className="sidebar">
-            <p> Sidebar content </p>
-          </Card>
-        )}
-        <div className={this.state.sidebarOpen ? 'main-open' : 'main'}>
-          Main content
-        </div>
-      </div>
+      <Layout>
+        <Datafiles menuSelected={this.menuSelected} />
+        <p>second</p>
+      </Layout>
     );
   }
 }

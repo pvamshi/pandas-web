@@ -17,6 +17,7 @@ html {
 
 body {
   font-family: Open Sans;
+  font-size: 14px;
 }
 
 .sidebar {
@@ -24,6 +25,7 @@ body {
   left: 0;
   width: 240px;
   height: calc(100vh - 50px);
+  /* transition: display 0.4s ease-in; */
 }
 
 .main-open {
@@ -31,6 +33,7 @@ body {
   margin-left: 250px;
   height: calc(100vh - 50px);
   padding: 20px;
+  /* transition: margin-left 0.4s ease-out; */
 }
 
 .main {
@@ -38,4 +41,5 @@ body {
   margin-left: 0px;
   height: calc(100vh - 50px);
   padding: 20px;
+  /* transition: margin-left 0.4s ease-out; */
 }
