@@ -4,6 +4,7 @@ from flask_restplus import Resource, fields
 from api import api
 import feather
 import pandasapi.service as service
+from flask_restplus import reqparse
 
 ns = api.namespace('pandas', description='Perform pandas commands')
 
@@ -13,13 +14,19 @@ config = api.model('ReadConfig', {
 })
 
 
+
+parser = reqparse.RequestParser()
+parser.add_argument('num', type=int, help='Number of vals')
+parser.add_argument('name')
+
 @ns.route('/head')
 class HeadCommand(Resource):
 
     # @ns.marshal_list_with(str, code=201)
-    @ns.expect(config)
+    @ns.expect(parser)
     def get(self):
-        reqs = api.payload
+        args = parser.parse_args()
+        reqs = args
         df = service.get_df(reqs['name'])
         return df.head(reqs.get('num') or 5).to_dict('split')
 
