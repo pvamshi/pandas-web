@@ -9,9 +9,10 @@ import pandas as pd
 from os import path
 from flask_cors import CORS
 
-
 app = Flask(__name__, static_folder="../client/build")
-CORS(app) # only for development purposes fix client and backend to be on same port TODO
+CORS(app)
+# only for development purposes fix client and backend to be on same port TODO
+
 
 @api.route('/hello')
 class HelloWorld(Resource):

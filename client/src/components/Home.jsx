@@ -1,8 +1,32 @@
 import React from 'react';
-import Layout from './Layout';
 import Datafiles from './Datafiles';
-import { Cell, Column, Table, RowHeaderCell } from '@blueprintjs/table';
+import DataTable from './DataTable';
+import { Provider, connect } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
+import Layout from './layout';
 
+const rootReducer = (state = { val: 0 }, action) => {
+  switch (action.type) {
+    case 'ADD':
+      console.log('add called');
+      return Object.assign({}, state, { val: state.val + 1 });
+    case 'SUB':
+      return Object.assign({}, state, { val: state.val - 1 });
+    default:
+      return state;
+  }
+};
+
+const rootStore = createStore(
+  rootReducer,
+
+  applyMiddleware(
+    thunkMiddleware, // lets us dispatch() functions
+    createLogger(), // neat middleware that logs actions
+  ),
+);
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -22,25 +46,10 @@ export default class Home extends React.Component {
       });
   }
   render() {
-    const cellRenderer = (rowIndex, columnIndex) => {
-      return <Cell>{this.state.data.data[rowIndex][columnIndex]}</Cell>;
-    };
-    const rowHeaderCellRenderer = (rowIndex) => {
-      return <RowHeaderCell>{this.state.data.index[rowIndex]}</RowHeaderCell>;
-    };
     return (
-      <Layout>
+      <Layout sidebarOpen={true} toggle={() => console.log('clicked')}>
         <Datafiles menuSelected={this.menuSelected} />
-        {this.state.data && (
-          <Table
-            numRows={this.state.data.index.length}
-            rowHeaderCellRenderer={rowHeaderCellRenderer}
-          >
-            {this.state.data.columns.map((column, index) => (
-              <Column key={index} name={column} cellRenderer={cellRenderer} />
-            ))}
-          </Table>
-        )}
+        {this.state.data && <DataTable data={this.state.data} />}
       </Layout>
     );
   }

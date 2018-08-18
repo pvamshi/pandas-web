@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from './Layout';
 import { Menu, MenuItem } from '@blueprintjs/core';
 
 export default class Home extends React.Component {
@@ -7,7 +6,6 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       dataFiles: [],
-      pandasData: {},
     };
     this.menuSelected = this.menuSelected.bind(this);
   }
@@ -18,9 +16,7 @@ export default class Home extends React.Component {
   componentDidMount() {
     fetch('http://localhost:5000/api/read/')
       .then((response) => response.json())
-      .then((data) =>
-        this.setState(Object.assign(this.state, { dataFiles: data })),
-      );
+      .then((data) => this.setState({ dataFiles: data }));
   }
   render() {
     return (
