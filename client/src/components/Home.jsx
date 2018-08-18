@@ -1,32 +1,13 @@
 import React from 'react';
-import Datafiles from './Datafiles';
+// import Datafiles from './Datafiles';
 import DataTable from './DataTable';
-import { Provider, connect } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import { createLogger } from 'redux-logger';
+// import { Provider, connect } from 'react-redux';
+// import { createStore, applyMiddleware } from 'redux';
+// import thunkMiddleware from 'redux-thunk';
+// import { createLogger } from 'redux-logger';
 import Layout from './layout';
+import Datafiles from './datafiles';
 
-const rootReducer = (state = { val: 0 }, action) => {
-  switch (action.type) {
-    case 'ADD':
-      console.log('add called');
-      return Object.assign({}, state, { val: state.val + 1 });
-    case 'SUB':
-      return Object.assign({}, state, { val: state.val - 1 });
-    default:
-      return state;
-  }
-};
-
-const rootStore = createStore(
-  rootReducer,
-
-  applyMiddleware(
-    thunkMiddleware, // lets us dispatch() functions
-    createLogger(), // neat middleware that logs actions
-  ),
-);
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
