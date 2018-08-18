@@ -24,4 +24,8 @@ const fetchDatafiles = () => {
   };
 };
 
-export default fetchDatafiles;
+const dataFileSelectAction = (file) => ({
+  type: DATAFILES.FILE_SELECT,
+  payload: file,
+});
+export { fetchDatafiles, dataFileSelectAction };

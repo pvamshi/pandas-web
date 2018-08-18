@@ -3,8 +3,10 @@ import { combineReducers } from 'redux';
 // import itemReducer from './itemReducer';
 import layout from './components/layout/reducer';
 import datafiles from './components/datafiles/reducer';
+import datatable from './components/datatable/reducer';
 
 export const rootReducer = combineReducers({
   layout,
   datafiles,
+  datatable,
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Menu, MenuItem } from '@blueprintjs/core';
-const DatafileContainer = ({ files, isFetching }) =>
+const DatafileContainer = ({ files, isFetching, fileSelect }) =>
   isFetching ? (
     <p>Fetching data</p>
   ) : (
@@ -10,7 +10,7 @@ const DatafileContainer = ({ files, isFetching }) =>
         <MenuItem
           key={index}
           text={data.name}
-          onClick={() => this.menuSelected(data)}
+          onClick={() => fileSelect(data.name)}
         />
       ))}
     </Menu>

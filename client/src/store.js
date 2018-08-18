@@ -5,7 +5,7 @@ import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { rootReducer } from './reducers';
 import freeze from 'redux-freeze';
-import fetchDatafiles from './components/datafiles/action';
+import { fetchDatafiles } from './components/datafiles/action';
 // import { fetchItems } from './actions/items';
 // import config from './config/client';
 
