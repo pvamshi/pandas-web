@@ -4,7 +4,7 @@ Keeping track of dev tasks
 
 ## Immediate tasks
 
-- API for `head`
+- ~~API for `head`~~
 
 - Tests cases for API
 
@@ -13,10 +13,9 @@ Keeping track of dev tasks
 - Backend code to manage feather
 
 - API to manage feather files
-  - list uploaded files
+  - ~~list uploaded files~~
   - delete uploaded file
-- Frontend code to upload file
-
+  - Frontend code to upload file
   - Take following params for each upload
     - Name
     - file path or SQL url or file url to download
