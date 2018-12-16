@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
-import connexion
 import datetime
 import logging
 
+import connexion
 from connexion import NoContent
+from flask_cors import CORS
 
 # our memory-only pet storage
 PETS = {}
 
 
 def get_pets(limit, animal_type=None):
-    return {"pets": [pet for pet in PETS.values() if not animal_type or pet['animal_type'] == animal_type][:limit]}
+    return {
+        "pets": [
+            pet for pet in PETS.values()
+            if not animal_type or pet['animal_type'] == animal_type
+        ][:limit]
+    }
 
 
 def get_pet(pet_id):
@@ -52,7 +58,7 @@ def delete_pet(pet_id):
 #     app.run(port=8080, server='gevent')
 # import connexion
 
-
 app = connexion.App(__name__, specification_dir='swagger/')
+CORS(app.app)
 app.add_api('api.yaml')
 app.run(server='tornado', port=8080)

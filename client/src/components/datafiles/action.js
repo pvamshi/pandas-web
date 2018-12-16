@@ -17,8 +17,12 @@ const fetchFailedAction = (error) => ({
 const fetchDatafiles = () => {
   return (dispatch) => {
     dispatch(startFetchingAction());
-    return fetch('http://localhost:5000/api/read/')
+    return fetch('http://localhost:8080/tasks')
       .then((response) => response.json())
+      .then((response) => {
+        console.log('data', response);
+        return response;
+      })
       .then((data) => dispatch(fetchSuccessAction(data)))
       .catch((error) => dispatch(fetchFailedAction(error)));
   };

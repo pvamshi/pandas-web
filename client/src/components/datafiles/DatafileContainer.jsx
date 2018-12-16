@@ -1,6 +1,6 @@
+import { Menu, MenuItem } from '@blueprintjs/core';
 import React from 'react';
 
-import { Menu, MenuItem } from '@blueprintjs/core';
 const DatafileContainer = ({ files, isFetching, fileSelect }) =>
   isFetching ? (
     <p>Fetching data</p>
