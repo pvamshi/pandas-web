@@ -3,5 +3,5 @@ Flask-SQLAlchemy==2.1
 feather-format
 pandas
 flask-cors
-connexion
+connexion[swagger-ui]
 tornado==5.1.1

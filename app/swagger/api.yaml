@@ -1,16 +1,16 @@
 swagger: '2.0'
 info:
   title: Pet Shop Example API
-  version: "0.1"
+  version: '0.1'
   description: Simple example API to store and retrieve pets
 consumes:
   - application/json
 produces:
   - application/json
 # security:
-  # enable OAuth protection for all REST endpoints
-  # (only active if the TOKENINFO_URL environment variable is set)
-  # - oauth2: [uid]
+# enable OAuth protection for all REST endpoints
+# (only active if the TOKENINFO_URL environment variable is set)
+# - oauth2: [uid]
 paths:
   /tasks:
     get:
@@ -19,8 +19,10 @@ paths:
       responses:
         200:
           description: Get all tasks
-            $ref: '#/definitions/DataFrame'
           schema:
+            type: array
+            items:
+              $ref: '#/definitions/DataFrame'
   /types:
     get:
       tags: [Type]
@@ -32,7 +34,7 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Type'
-              # type: string 
+  # type: string
   /pets:
     get:
       tags: [Pets]
@@ -42,7 +44,7 @@ paths:
         - name: animal_type
           in: query
           type: string
-          pattern: "^[a-zA-Z0-9]*$"
+          pattern: '^[a-zA-Z0-9]*$'
         - name: limit
           in: query
           type: integer
@@ -100,7 +102,6 @@ paths:
         404:
           description: Pet does not exist
 
-
 parameters:
   pet_id:
     name: pet_id
@@ -108,7 +109,7 @@ parameters:
     in: path
     type: string
     required: true
-    pattern: "^[a-zA-Z0-9-]+$"
+    pattern: '^[a-zA-Z0-9-]+$'
 
 definitions:
   DataFrame:
@@ -124,7 +125,7 @@ definitions:
           type: string
       data:
         type: array
-        items: 
+        items:
           type: array
           items:
             type: string
@@ -135,11 +136,11 @@ definitions:
       name:
         type: string
         description: Display name for the task
-        example : ' Task 1'
-      path: 
-        type : string
+        example: ' Task 1'
+      path:
+        type: string
         description: Path of the feather file
-        example : '/tmp/test.feather'
+        example: '/tmp/test.feather'
   Type:
     type: string
   Pet:
@@ -151,18 +152,18 @@ definitions:
       id:
         type: string
         description: Unique identifier
-        example: "123"
+        example: '123'
         readOnly: true
       name:
         type: string
         description: Pet's name
-        example: "Susie"
+        example: 'Susie'
         minLength: 1
         maxLength: 100
       animal_type:
         type: string
         description: Kind of animal
-        example: "cat"
+        example: 'cat'
         minLength: 1
       tags:
         type: object
@@ -171,10 +172,8 @@ definitions:
         type: string
         format: date-time
         description: Creation time
-        example: "2015-07-07T15:49:51.230+02:00"
+        example: '2015-07-07T15:49:51.230+02:00'
         readOnly: true
-
-
 # securityDefinitions:
 #   oauth2:
 #     type: oauth2
