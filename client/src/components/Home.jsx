@@ -1,7 +1,8 @@
 import React from 'react';
-import DataTable from './DataTable';
-import Layout from './layout';
 import Datafiles from './datafiles';
+// import DataTable from './DataTable';
+import DataTable from './datatable';
+import Layout from './layout';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ export default class Home extends React.Component {
     return (
       <Layout sidebarOpen={true} toggle={() => console.log('clicked')}>
         <Datafiles menuSelected={this.menuSelected} />
-        {this.state.data && <DataTable data={this.state.data} />}
+        <DataTable />
       </Layout>
     );
   }
