@@ -21,10 +21,37 @@ paths:
           description: Get all tasks
           schema:
             $ref: '#/definitions/DataFrame'
-  /head:
+  /pandas:
     get:
       tags: [Pandas]
-      operationId: tasks.get_head
+      operationId: pandascommands.df
+      parameters:
+        - name: taskid
+          in: query
+          type: integer
+          format: int32
+          minimum: 0
+        - name: offset
+          in: query
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          type: integer
+          format: int32
+          minimum: 0
+          default: 10
+      responses:
+        200:
+          description: Get first n elements
+          schema:
+            $ref: '#/definitions/DataFrame'
+  /pandas/head:
+    get:
+      tags: [Pandas]
+      operationId: pandascommands.head
       parameters:
         - name: taskid
           in: query

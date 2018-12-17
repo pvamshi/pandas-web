@@ -2,17 +2,26 @@
 import feather
 import pandas as pd
 
-from app.tasks import get_db
+DB = "data/tasks.feather"
 
 
 def get_head(taskid, limit):
     df = get_df(taskid)
-    return df.head(limit).to_dict('split')
+    return df.head(limit)
 
 
-def get_df(index):
-    file = get_db().loc[index]['path']
+def get_df(taskid):
+    db = feather.read_dataframe(DB)
+    file = db.loc[taskid]['path']
     return feather.read_dataframe(file)
+
+
+def head(taskid, limit):
+    return get_head(taskid, limit).to_dict('split')
+
+
+def df(taskid, offset, limit):
+    return get_df(taskid)[offset:(offset + limit)].to_dict('split')
 
 
 def main():
