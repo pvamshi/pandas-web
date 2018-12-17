@@ -27,8 +27,18 @@ def get_tasks():
     return get_db().to_dict("split")
 
 
+def get_head(taskid, limit):
+    df = get_df(taskid)
+    return df.head(limit).to_dict('split')
+
+
+def get_df(index):
+    file = get_db().loc[index]['path']
+    return feather.read_dataframe(file)
+
+
 def main():
-    df = get_tasks()
+    df = get_head(0, 10)
     return df
 
 

@@ -4,6 +4,8 @@ import feather
 from flask import Flask
 from flask_restplus import Resource, fields, reqparse
 
+import service
+
 # import service
 
 # from api import api
@@ -20,11 +22,9 @@ from flask_restplus import Resource, fields, reqparse
 #     },
 # )
 
-
 # parser = reqparse.RequestParser()
 # parser.add_argument("num", type=int, help="Number of vals")
 # parser.add_argument("name")
-
 
 # @ns.route("/head")
 # class HeadCommand(Resource):
@@ -39,6 +39,14 @@ from flask_restplus import Resource, fields, reqparse
 
 #     # @ns.route('/')
 #     # class ReadConfig(Resource):
+
+
+def get_head(taskid, limit):
+    ''' 
+    Return the first n values of a pandas dataframe
+    '''
+    df = service.get_df(taskid)
+    return df.head(limit).to_dict()
 
 
 def tasks():

@@ -20,9 +20,28 @@ paths:
         200:
           description: Get all tasks
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/DataFrame'
+            $ref: '#/definitions/DataFrame'
+  /head:
+    get:
+      tags: [Pandas]
+      operationId: tasks.get_head
+      parameters:
+        - name: taskid
+          in: query
+          type: integer
+          format: int32
+          minimum: 0
+        - name: limit
+          in: query
+          type: integer
+          format: int32
+          minimum: 0
+          default: 10
+      responses:
+        200:
+          description: Get first n elements
+          schema:
+            $ref: '#/definitions/DataFrame'
   /types:
     get:
       tags: [Type]

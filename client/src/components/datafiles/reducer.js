@@ -1,13 +1,15 @@
 import DATAFILES from './constant';
 
 const convert = (raw) =>
-  raw.data.map((row) =>
+  raw.data.map((row, rowIndex) =>
     raw.columns.reduce(
       (accumulated, current, index) => ({
         ...accumulated,
         [current]: row[index],
       }),
-      {},
+      {
+        id: raw.index[rowIndex],
+      },
     ),
   );
 
@@ -19,8 +21,6 @@ const datafiles = (state = initialState, action) => {
     case DATAFILES.GET_FAIL:
       return { ...state, isFetching: false, error: action.payload };
     case DATAFILES.GET_SUCCESS:
-      // const data = action.payload;
-      // const files = data.data.map((val, index)=>({[key]: data.data[]}))
       return {
         ...state,
         files: convert(action.payload),

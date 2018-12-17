@@ -10,7 +10,7 @@ const DatafileContainer = ({ files, isFetching, fileSelect }) =>
         <MenuItem
           key={index}
           text={data.name}
-          onClick={() => fileSelect(data.name)}
+          onClick={() => fileSelect(data)}
         />
       ))}
     </Menu>
