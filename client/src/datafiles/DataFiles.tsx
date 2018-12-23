@@ -1,14 +1,17 @@
 import { Menu, MenuItem } from '@blueprintjs/core';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import * as React from 'react';
+import { DataTableStore } from 'src/datatable/datatable.store';
 import { DataFilesStore, IFile } from './datafiles.store';
 
+@inject('dataTableStore')
 @observer
 export default class DataFiles extends React.Component<{
   dataFilesStore: DataFilesStore;
+  dataTableStore?: DataTableStore;
 }> {
   public selectFile(file: IFile) {
-    this.props.dataFilesStore.selectFile(file);
+    this.props.dataTableStore!.fetchPivot(file);
   }
 
   public componentDidMount() {

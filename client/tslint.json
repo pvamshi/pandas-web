@@ -1,5 +1,10 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier",
+    "@blueprintjs/tslint-config/blueprint-rules"
+  ],
   "rules": {
     "no-console": false
   },

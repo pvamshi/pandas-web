@@ -9,6 +9,7 @@ import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { IPivotData } from 'src/datafiles/datafiles.store';
 import { DataTableStore } from './datatable.store';
+import Pagination from './Pagination';
 
 @inject('dataTableStore')
 @observer
@@ -29,28 +30,31 @@ export default class DataTable extends React.Component<{
     return !dts!.loading && !dts!.data ? (
       <p>Nothing to display</p>
     ) : (
-      <Table
-        loadingOptions={
-          dts!.loading
-            ? [
-                TableLoadingOption.CELLS,
-                TableLoadingOption.COLUMN_HEADERS,
-                TableLoadingOption.ROW_HEADERS,
-              ]
-            : []
-        }
-        numRows={dts!.data && dts!.data.data.length}
-        rowHeaderCellRenderer={getRowHeaderCellRenderer(dts!.data)}
-      >
-        {dts!.data &&
-          dts!.data.columns.map((column, index) => (
-            <Column
-              key={index}
-              name={column}
-              cellRenderer={getCellRenderer(dts!.data.data)}
-            />
-          ))}
-      </Table>
+      <div>
+        <Table
+          loadingOptions={
+            dts!.loading
+              ? [
+                  TableLoadingOption.CELLS,
+                  TableLoadingOption.COLUMN_HEADERS,
+                  TableLoadingOption.ROW_HEADERS,
+                ]
+              : []
+          }
+          numRows={dts!.data && dts!.data.data.length}
+          rowHeaderCellRenderer={getRowHeaderCellRenderer(dts!.data)}
+        >
+          {dts!.data &&
+            dts!.data.columns.map((column, index) => (
+              <Column
+                key={index}
+                name={column}
+                cellRenderer={getCellRenderer(dts!.data.data)}
+              />
+            ))}
+        </Table>
+        <Pagination />
+      </div>
     );
   }
 }
